@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.optum-etl</groupId>
+    <artifactId>spark-etl</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <encoding>UTF-8</encoding>
+        <scala-major-version>2</scala-major-version>
+        <scala-minor-version>11</scala-minor-version>
+        <scala-patch-version>12</scala-patch-version>
+        <scala-lang-version>2.11.12</scala-lang-version>
+        <spark-version>2.4.0</spark-version>
+
+        <!-- Maven Stuff -->
+        <scala-maven-plugin-version>3.3.2</scala-maven-plugin-version>
+    </properties>
+
+    <dependencies>
+
+         <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala-lang-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_${scala-major-version}.${scala-minor-version}</artifactId>
+            <version>${spark-version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <plugins>
+
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>${scala-maven-plugin-version}</version>
+                <configuration>
+                    <scalaVersion>${scala-major-version}.${scala-minor-version}.${scala-patch-version}
+                    </scalaVersion>
+                    <scalaCompatVersion>${scala-major-version}.${scala-minor-version}</scalaCompatVersion>
+                    <fork>true</fork>
+                    <jvmArgs>
+                        <jvmArg>-Xms256m</jvmArg>
+                        <jvmArg>-Xmx8192m</jvmArg>
+                        <jvmArg>-Xss16m</jvmArg>
+                    </jvmArgs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
